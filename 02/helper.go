@@ -1,21 +1,31 @@
 package main
 
 import (
-	"advent-of-code-2022/functions"
 	"fmt"
 	"strings"
 )
 
-func main() {
-	arr1 := functions.Get(2)
+func getScore(opponent rune, me rune) int {
+	result := opponent - me
+	var score = int(me)
+
+	if result == 0 {
+		score += 3
+	} else if result == -1 || result == 2 {
+		score += 6
+	} else {
+	}
+	return score
+}
+
+func calculateScore(arr1 []string, part string, f func(strategy string, opponent rune) rune) {
 	total := 0
 
 	for _, row := range arr1 {
 		split := strings.Split(row, " ")
 
 		opponent := []rune(split[0])[0] - 64
-		strategy := split[1]
-		me := findMyShape(strategy, opponent)
+		me := f(split[1], opponent)
 		result := opponent - me
 		var score = int(me)
 
@@ -25,12 +35,10 @@ func main() {
 		} else if result == -1 || result == 2 {
 			fmt.Println(split, "Score", score, " + 6 = ", total+score+6)
 			score += 6
-		} else {
-			fmt.Println(split, "Score", score, " + 0 = ", total+score)
 		}
-		total += score
+		total += getScore(opponent, me)
 	}
-	fmt.Println("Final score: ", total)
+	fmt.Printf("[Day 02, part %s] Final score: %d\n", part, total)
 }
 
 func findMyShape(strategy string, opponent rune) rune {
