@@ -37,3 +37,8 @@ func FindMax(input []int) int {
 	}
 	return max
 }
+
+func ParseInt(input string) int {
+	result, _ := strconv.Atoi(input)
+	return result
+}
