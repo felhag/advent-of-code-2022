@@ -2,13 +2,14 @@ package functions
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"os"
 	"strconv"
 )
 
 func Get(Day int) []string {
-	var file = "0" + strconv.Itoa(Day) + "/input.txt"
+	var file = fmt.Sprintf("%02d/input.txt", Day)
 	f, err := os.Open(file)
 
 	if err != nil {
